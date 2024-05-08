@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build": "rimraf dist && tsc"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.2"
+  }
+}
