@@ -105,7 +105,8 @@ Examples:
 - [Class Singleton](src/class-decorators/class-singleton.ts): A class decorator that makes a class a singleton.
 - [Class Method Logging](src/class-decorators/class-method-logging.ts): A class decorator that logs every method call by wrapping them.
 
-### Caveats:
+**Caveats**
+
 - When re-writing a class (like in [Class Method Logging](src/class-decorators/class-method-logging.ts)), you need to be aware that the new class will have a different name and prototype than the original class.
 - Take care of the typing: if you extend the original class, the new methods won't be visible in the type system.
 - In the example [Class Registry](src/class-decorators/class-registry.ts), be aware that Tree-shaking may remove the class from the registry if it's not used anywhere else in the code. You may need to explicitly import the whole module in the entry file to prevent this.
@@ -208,7 +209,8 @@ Examples:
 - [Property Metadata Typecheck](src/property-decorators/property-metadata-typecheck.ts): A property decorator that adds typing metadata to a property, then checks it using a function.
 - [Property Angular-like Input](src/property-decorators/property-input.ts): A property decorator that creates an Angular-like input property.
 
-#### Pro Tip:
+**Pro Tip:**
+
 The example [Property Metadata Typecheck](src/property-decorators/property-metadata-typecheck.ts) can be achieved with no code by setting the `emitDecoratorMetadata` option to `true` in the `tsconfig.json` file.
 
 ```json
@@ -243,7 +245,8 @@ class MyClass {
 }
 ```
 
-#### Caveats
+**Caveats**
+
 Parameter decorators can't modify directly the behavior of a method. They can only be used to add metadata to a parameter.
 You may need to use them in conjunction with other decorators to achieve the desired behavior. See the examples below.
 
