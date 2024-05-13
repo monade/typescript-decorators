@@ -1,5 +1,3 @@
-import 'reflect-metadata';
-
 interface IParser {
     parse(data: string): any;
 }
