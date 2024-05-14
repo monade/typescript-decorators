@@ -63,6 +63,26 @@ Usage:
 /* the class, property or method */
 ```
 
+## Decorator Metadata
+One of the primary use cases for decorators is to add metadata to a class, method, property, or parameter. This metadata can be used by other parts of the code to determine how to interact with the decorated element.
+
+Typescript provides a way to access this metadata using the `Reflect` object. The `Reflect` object is available through a polyfill using the library `reflect-metadata`.
+
+```typescript
+import 'reflect-metadata';
+
+function myDecorator(target: any) {
+    Reflect.defineMetadata('myMetadata', 'myValue', target);
+}
+
+@myDecorator
+class MyClass {
+    /* ... */
+}
+
+const metadata = Reflect.getMetadata('myMetadata', MyClass);
+```
+
 ## Types of Decorators
 
 There are five types of decorators in Typescript:
@@ -146,7 +166,6 @@ Examples:
 - [Method Typecheck](src/method-decorators/method-typecheck.ts): A method decorator that type-checks the arguments and return value of a method.
 - [Method Logging](src/method-decorators/method-safe.ts): A method decorator that wraps a method to catch and log errors that occur during its execution.
 - [Method Timeout](src/method-decorators/method-timeout.ts): A method decorator that introduces a timeout to an async method.
-- [Function Decorators](src/method-decorators/function-decorators.ts): A example showing how to create a decorator that can be applied to both methods and functions.
 
 ### Accessor decorators
 Signature:
@@ -221,6 +240,19 @@ The example [Property Metadata Typecheck](src/property-decorators/property-metad
 }
 ```
 
+**Caveats**
+In the `Property Dependency Injection` example, may not work if you set the target to `ES2022` in the `tsconfig.json` file. You may need to set `useDefineForClassFields` to `false` to make it work.
+
+```json
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "useDefineForClassFields": false
+    }
+}
+```
+
+This is because the `useDefineForClassFields` option changes the way class fields are defined.
 
 ### Parameter decorators
 Signature:
@@ -255,3 +287,44 @@ Examples:
 - [Parameter Dependency Injection](src/parameter-decorators/parameter-dependency-injection.ts): Shows how to achieve an angular-like dependency injection using parameter decorators in the constructor.
 - [Parameter Transformation](src/parameter-decorators/parameter-transformation.ts): Shows how to transform or sanitize parameters using parameter decorators.
 - [Parameter Can't Modify Methods](src/parameter-decorators/parameter-cant-modify-methods.ts): Shows that parameter decorators can't modify the behavior of a method directly.
+
+## Functional Javascript and Decorators
+Unfortunately Typescript decorators unfortunately don't support decorating a function directly.
+
+```typescript
+function myDecorator() {
+    /* ... */
+}
+
+// This won't work
+@myDecorator
+function myFunction() {
+
+}
+```
+
+However, you can achieve similar functionality by using higher-order functions.
+
+```typescript
+function myDecorator(fn: Function) {
+    return function (...args: any[]) {
+        /* do stuff before calling the function */
+        /* ... */
+
+        const result = fn(...args);
+
+        /* do stuff after calling the function */
+        /* ... */
+
+        return result;
+    };
+}
+
+const myFunction = myDecorator(function () {
+    /* ... */
+});
+```
+
+Examples:
+- [Function decorator](src/function-decorators/function-decorator.ts): Shows how to achieve similar functionality to a function decorator using higher-order functions.
+- [Function fancier decorator](src/function-decorators/function-fancier-decorator.ts): Shows a pattern that helps achieving more complex functionality by introducing a `decorate` function.

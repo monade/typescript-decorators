@@ -2,14 +2,13 @@ import 'reflect-metadata';
 
 const tableKey = Symbol('table');
 
-function Model(name: string) {
+function TableName(name: string) {
     return function(constructor: Function) {
         Reflect.defineMetadata(tableKey, name, constructor);
     }
 }
 
-
-@Model('users')
+@TableName('users')
 class User {
     constructor(public name: string) {}
 }
