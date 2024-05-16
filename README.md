@@ -109,7 +109,7 @@ function classDecorator<T extends { new (...args: any[]): {} }>(constructor: T):
 ```
 
 Usage:
-    
+
 ```typescript
 @classDecorator
 class MyClass {

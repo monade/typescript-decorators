@@ -1,6 +1,6 @@
 
 function TypeCheck(...types: string[]) {
-    return function(target: any, key: string, descriptor: PropertyDescriptor) {
+    return function(target: Object, key: string, descriptor: PropertyDescriptor) {
         const originalMethod = descriptor.value;
 
         descriptor.value = function(...args: any[]) {

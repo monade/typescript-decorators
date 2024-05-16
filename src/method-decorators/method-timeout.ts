@@ -1,6 +1,6 @@
 
 function timeout(milliseconds: number) {
-    return function(target: any, key: string, descriptor: PropertyDescriptor) {
+    return function(_: Object, _key: string, descriptor: PropertyDescriptor) {
         const originalMethod = descriptor.value;
 
         descriptor.value = function(...args: any[]) {
@@ -17,7 +17,6 @@ function timeout(milliseconds: number) {
         return descriptor;
     }
 }
-
 
 class SomeService {
     constructor() {}

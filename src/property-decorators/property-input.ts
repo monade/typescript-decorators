@@ -26,7 +26,7 @@ function instantiateComponent<T>(
 }
 
 // <UserComponent name="Alice" />
-const component = instantiateComponent<UserComponent>(UserComponent, {
+const component = instantiateComponent(UserComponent, {
   name: "Alice",
 });
 
